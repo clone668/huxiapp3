@@ -1,0 +1,104 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'huxi 的个人主页 — 作品与文章' } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const nav = [
+  { href: '/works', label: 'Works', zh: '作品' },
+  { href: '/blog', label: 'Writing', zh: '文章' },
+  { href: '/about', label: 'About', zh: '关于' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="generator" content={Astro.generator} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>{title} · huxi</title>
+
+  <!-- 主题：跟随系统，手动选择存 localStorage，避免闪烁 -->
+  <script is:inline>
+    (function () {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- 刊头 -->
+    <div class="masthead">
+      <div class="vol">The Personal Gazette · huxi.app · 2026</div>
+      <h1><a href="/">huxi</a></h1>
+      <div class="tagline">— 写代码，也写一点字 —</div>
+    </div>
+
+    <div class="dateline">
+      <span>Shanghai, China</span>
+      <span>Established MMXIX</span>
+      <span>Updated Weekly</span>
+    </div>
+
+    <nav class="site-nav" style="position:relative;">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class={currentPath.startsWith(item.href) ? 'active' : ''}
+        >
+          {item.label}
+        </a>
+      ))}
+      <button class="theme-toggle" id="theme-toggle" type="button">☾ Dark</button>
+    </nav>
+
+    <slot />
+
+    <footer class="site-footer">
+      <span class="colophon">Set in Playfair &amp; Noto Serif · © MMXXVI</span>
+      <div class="links">
+        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:hi@huxi.app">Email</a>
+        <a href="/rss.xml">RSS</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script is:inline>
+    (function () {
+      const btn = document.getElementById('theme-toggle');
+      function sync() {
+        const dark = document.documentElement.classList.contains('dark');
+        btn.textContent = dark ? '☀ Light' : '☾ Dark';
+      }
+      btn.addEventListener('click', function () {
+        const dark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+        sync();
+      });
+      sync();
+    })();
+  </script>
+</body>
+</html>

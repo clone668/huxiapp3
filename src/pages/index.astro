@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const works = (await getCollection('works'))
+  .filter((w) => w.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 4);
+
+const fmtDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<Base title="首页">
+  <!-- hero -->
+  <section class="hero">
+    <div class="lead">
+      <h2>独立开发者的<br />作品陈列室与<em>思想草稿本</em>。</h2>
+      <p>这里收录我亲手建造的东西——从让多个 AI 开会讨论的工具，到替你点鼠标的桌面脚本。文章则记录我如何把问题想清楚，或者，如何承认自己还没想清楚。</p>
+      <blockquote class="motto">I'd rather be alone than be fake.</blockquote>
+    </div>
+    <aside class="side">
+      <h4>✦ By The Numbers</h4>
+      <div class="fact">4 件作品<span>AI 工具 / 路由 / 建模 / 自动化</span></div>
+      <div class="fact">2 篇文章<span>刚刚开张，持续更新</span></div>
+      <div class="fact">1 个域名<span>huxi.app，自己说了算</span></div>
+      <div class="fact">0 句假话<span>座右铭见下</span></div>
+    </aside>
+  </section>
+
+  <!-- 精选作品 -->
+  <section class="works">
+    <div class="sec-label">
+      <h3>作品</h3>
+      <span class="rule"></span>
+      <span class="no">Fig. 1–{works.length}</span>
+      <a class="more" href="/works">All →</a>
+    </div>
+    <div class="work-grid">
+      {works.map((w, i) => (
+        <a class="work-cell" href={`/works/${w.id}`}>
+          <div class="fig">Fig. {i + 1}</div>
+          <h5>{w.data.title}</h5>
+          <p>{w.data.description}</p>
+          <div class="foot">{w.data.stack.join(' · ')} · {w.data.year}</div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- 最新文章 -->
+  <section class="writing">
+    <div class="sec-label">
+      <h3>文章</h3>
+      <span class="rule"></span>
+      <span class="no">Selected</span>
+      <a class="more" href="/blog">All →</a>
+    </div>
+    <div class="post-list">
+      {posts.map((p) => (
+        <a class="post" href={`/blog/${p.id}`}>
+          <div class="kicker">{p.data.kicker}</div>
+          <h6>{p.data.title}</h6>
+          <p class="excerpt">{p.data.description}</p>
+          <span class="date">{fmtDate(p.data.date)}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
