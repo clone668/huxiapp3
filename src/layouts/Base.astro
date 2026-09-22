@@ -41,6 +41,11 @@ const nav = [
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="theme-color" content="#F5F1E8" />
+  <script is:inline>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+    }
+  </script>
   <title>{title} · huxi</title>
 
   <!-- 主题：跟随系统，手动选择存 localStorage，避免闪烁 -->
