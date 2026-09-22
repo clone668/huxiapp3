@@ -21,6 +21,7 @@ const works = defineCollection({
     year: z.string(),                       // 如 "2025"
     stack: z.array(z.string()).default([]), // 技术栈
     link: z.string().url().optional(),      // 线上地址
+    url: z.string().optional(),             // 站内链接（如 /ruler）
     github: z.string().url().optional(),    // 源码地址
     order: z.number().default(0),           // 排序，小的在前
     featured: z.boolean().default(true),    // 是否上首页

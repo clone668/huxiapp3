@@ -10,8 +10,9 @@ const works = (await getCollection('works'))
   <section class="works">
     <div class="sec-label">
       <h3>作品</h3>
-      <span class="rule"></span>
-      <span class="no">Fig. 1–{works.length}</span>
+      <div class="meta">
+        <span class="no">Fig. 1–{works.length}</span>
+      </div>
     </div>
     <div class="work-grid cols-2">
       {works.map((w, i) => (

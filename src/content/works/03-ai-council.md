@@ -3,8 +3,9 @@ title: AI Council
 description: 让多个 AI 围绕同一个问题连续讨论、相互质询，最终形成结论文档的本地应用。
 year: "2025"
 stack: [Python, SSE, Markdown-it, KaTeX]
-order: 1
+order: 3
 featured: true
+github: https://github.com/clone668/AI-Council
 ---
 
 ## 一个 AI 不够，那就开一场会

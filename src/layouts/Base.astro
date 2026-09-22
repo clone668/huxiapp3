@@ -10,6 +10,7 @@ const { title, description = 'huxi 的个人主页 — 作品与文章' } = Astr
 const currentPath = Astro.url.pathname;
 
 const nav = [
+  { href: '/', label: 'Index', zh: '首页' },
   { href: '/works', label: 'Works', zh: '作品' },
   { href: '/blog', label: 'Writing', zh: '文章' },
   { href: '/about', label: 'About', zh: '关于' },
@@ -40,35 +41,55 @@ const nav = [
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500&family=JetBrains+Mono:wght@400;700&display=swap"
     rel="stylesheet"
+    onload="this.media='all'"
   />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" /></noscript>
 </head>
 <body>
   <div class="wrap">
 
     <!-- 刊头 -->
     <div class="masthead">
-      <div class="vol">The Personal Gazette · huxi.app · 2026</div>
-      <h1><a href="/">huxi</a></h1>
-      <div class="tagline">— 写代码，也写一点字 —</div>
+      <div class="vol">Personal Homepage · HUXI.APP · 2026</div>
+      <svg class="wordmark" viewBox="0 0 800 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HUXI">
+        <text class="wm-text" x="405" y="140" text-anchor="middle">HUXI</text>
+      </svg>
+      <div class="tagline">
+        <svg class="tagline-svg" viewBox="0 0 800 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="I'd rather be alone than fake">
+          <defs>
+            <linearGradient id="tl-scan" x1="-1" y1="0" x2="0" y2="0" gradientUnits="objectBoundingBox">
+              <stop offset="0%"  class="scan-base-dim"/>
+              <stop offset="42%" class="scan-base-dim"/>
+              <stop offset="50%" class="scan-light-tag"/>
+              <stop offset="58%" class="scan-base-dim"/>
+              <stop offset="100%" class="scan-base-dim"/>
+              <animate attributeName="x1" values="-1.5;2.5;2.5" keyTimes="0;.45;1" dur="16s" repeatCount="indefinite"/>
+              <animate attributeName="x2" values="-0.5;3.5;3.5" keyTimes="0;.45;1" dur="16s" repeatCount="indefinite"/>
+            </linearGradient>
+          </defs>
+          <text class="tl-text" x="400" y="21" text-anchor="middle">— I'D RATHER BE ALONE THAN FAKE —</text>
+        </svg>
+      </div>
     </div>
 
     <div class="dateline">
-      <span>Shanghai, China</span>
-      <span>Established MMXIX</span>
-      <span>Updated Weekly</span>
+      <span>Quanzhou, China</span>
+      <span>Updated occasionally</span>
     </div>
 
     <nav class="site-nav" style="position:relative;">
-      {nav.map((item) => (
-        <a
-          href={item.href}
-          class={currentPath.startsWith(item.href) ? 'active' : ''}
-        >
-          {item.label}
-        </a>
-      ))}
+      {nav.map((item) => {
+        const active = item.href === '/'
+          ? currentPath === '/'
+          : currentPath.startsWith(item.href);
+        return (
+          <a href={item.href} class={active ? 'active' : ''}>
+            {item.label}
+          </a>
+        );
+      })}
       <button class="theme-toggle" id="theme-toggle" type="button">☾ Dark</button>
     </nav>
 
@@ -77,7 +98,7 @@ const nav = [
     <footer class="site-footer">
       <span class="colophon">Set in Playfair &amp; Noto Serif · © MMXXVI</span>
       <div class="links">
-        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/clone668" target="_blank" rel="noopener">GitHub</a>
         <a href="mailto:hi@huxi.app">Email</a>
         <a href="/rss.xml">RSS</a>
       </div>

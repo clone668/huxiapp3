@@ -16,18 +16,209 @@ const { Content } = await render(work);
 
 <Base title={work.data.title} description={work.data.description}>
   <article>
-    <header class="prose-head">
-      <div class="kicker">Work · {work.data.year} · {work.data.stack.join(' · ')}</div>
-      <h1>{work.data.title}</h1>
-      {(work.data.link || work.data.github) && (
-        <div class="work-links">
-          {work.data.link && <a href={work.data.link} target="_blank" rel="noopener">Live ↗</a>}
-          {work.data.github && <a href={work.data.github} target="_blank" rel="noopener">Source ↗</a>}
-        </div>
-      )}
-    </header>
+    {work.data.url !== '/ruler' && (
+      <header class="prose-head">
+        <div class="kicker">Work · {work.data.year} · {work.data.stack.join(' · ')}</div>
+        <h1>{work.data.title}</h1>
+        {(work.data.link || work.data.github) && (
+          <div class="work-links">
+            {work.data.link && <a href={work.data.link} target="_blank" rel="noopener">Live ↗</a>}
+            {work.data.github && (
+              <a href={work.data.github} target="_blank" rel="noopener" aria-label="GitHub" class="gh-link">
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                Source
+              </a>
+            )}
+          </div>
+        )}
+      </header>
+    )}
+
     <div class="prose-body">
       <Content />
     </div>
+
+    {work.data.url === '/ruler' && (
+      <div class="ruler-embed">
+
+        <!-- 主操作容器 -->
+        <div class="r-container">
+          <div class="input-label">输入框（毫米）：</div>
+          <input type="number" id="measureInput" placeholder="请输入尺寸(mm)" step="0.1">
+          <div style="position: relative;">
+            <div class="vertical-line"></div>
+            <div class="ruler-container" style="overflow: hidden;">
+              <img src="/ruler/wg.png" class="ruler-image" id="wengong" style="left: -51px">
+              <img src="/ruler/dl.png" class="dinglan-image" id="dinglan" style="left: -14px">
+            </div>
+          </div>
+          <div class="button-group">
+            <button id="minus20">-20</button>
+            <button id="minus5">-5</button>
+            <button id="plus5">+5</button>
+            <button id="plus20">+20</button>
+          </div>
+        </div>
+
+      </div>
+    )}
   </article>
 </Base>
+
+<style>
+  .ruler-embed{max-width:680px;margin:0 auto;padding:0 0 64px;}
+  .r-container{
+    text-align:center;
+    background:transparent;
+    padding:24px 28px;
+    border:1px solid var(--line);
+  }
+  .input-label{
+    color:var(--dim);
+    font-size:.85rem;
+    margin-bottom:10px;
+    font-weight:500;
+    text-align:left;
+    letter-spacing:.1em;
+  }
+  #measureInput{
+    width:calc(100% - 30px);
+    padding:10px 15px;
+    text-align:center;
+    border:1px solid var(--line);
+    font-size:16px;
+    transition:border-color .3s;
+    background:transparent;
+    color:var(--ink);
+    font-family:'JetBrains Mono',monospace;
+    margin-bottom:20px;
+  }
+  #measureInput:focus{outline:none;border-color:var(--accent);}
+  .ruler-container{
+    width:247.5px;height:66px;
+    border:2px solid var(--line);
+    position:relative;cursor:grab;margin:0 auto;background:#fafafa;
+  }
+  .ruler-container:active{cursor:grabbing;}
+  .vertical-line{
+    position:absolute;left:50%;height:66px;width:2px;
+    background:var(--accent);z-index:3;pointer-events:none;
+    transform:translateX(-50%);
+  }
+  .vertical-line::before{
+    content:'';position:absolute;top:-5px;left:0;width:2px;height:6px;background:var(--accent);
+  }
+  .vertical-line::after{
+    content:'';position:absolute;bottom:-5px;left:0;width:2px;height:6px;background:var(--accent);
+  }
+  .ruler-image{position:absolute;height:39px;width:3619.5px;user-select:none;}
+  .dinglan-image{position:absolute;top:39px;height:27px;width:3201px;user-select:none;}
+  .button-group{margin-top:20px;display:flex;justify-content:center;gap:12px;}
+  .button-group button{
+    padding:8px 16px;border:1px solid var(--line);
+    background-color:transparent;color:var(--dim);
+    cursor:pointer;font-size:14px;min-width:60px;
+    font-family:'JetBrains Mono',monospace;
+    transition:color .2s,border-color .2s;
+  }
+  .button-group button:hover{color:var(--accent);border-color:var(--accent);}
+</style>
+
+<script is:inline>
+  let isDragging = false;
+  let startX = 0;
+  const rulerContainer = document.querySelector('.ruler-container');
+  const measureInput = document.querySelector('#measureInput');
+  const wengongImg = document.querySelector('.ruler-image');
+  const dinglanImg = document.querySelector('.dinglan-image');
+
+  function calculateWengong(mm) {
+      if (mm > 429) { mm = mm - Math.floor(mm / 429) * 429; }
+      const multiplier = isMobileDevice() ? 15 : 7.5;
+      const offset = isMobileDevice() ? 153 : 76.5;
+      return -(mm * multiplier + offset);
+  }
+  function calculateDinglan(mm) {
+      if (mm > 388) { mm = mm - Math.floor(mm / 388) * 388; }
+      const multiplier = isMobileDevice() ? 15 : 7.5;
+      const offset = isMobileDevice() ? 42 : 21;
+      return -(mm * multiplier + offset);
+  }
+  function handleMouseDown(e) { isDragging = true; startX = e.clientX; e.preventDefault(); }
+  function handleMouseMove(e) {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      const multiplier = isMobileDevice() ? 15 : 7.5;
+      const mmChange = Math.floor(dx / multiplier);
+      updateRulerPosition(mmChange);
+      startX = e.clientX;
+  }
+  function handleMouseUp() { isDragging = false; }
+  function handleTouchStart(e) { isDragging = true; startX = e.touches[0].clientX; e.preventDefault(); }
+  function handleTouchMove(e) {
+      if (!isDragging) return;
+      const dx = e.touches[0].clientX - startX;
+      const multiplier = isMobileDevice() ? 15 : 7.5;
+      const mmChange = Math.floor(dx / multiplier);
+      updateRulerPosition(mmChange);
+      startX = e.touches[0].clientX;
+      e.preventDefault();
+  }
+  function updateRulerPosition(mmChange) {
+      let currentValue = parseFloat(measureInput.value) || 0;
+      let newValue = currentValue - mmChange;
+      if (newValue < 0) newValue = 0;
+      measureInput.value = newValue.toFixed(1);
+      wengongImg.style.left = calculateWengong(newValue) + 'px';
+      dinglanImg.style.left = calculateDinglan(newValue) + 'px';
+  }
+  if (isMobileDevice()) {
+      rulerContainer.addEventListener('touchstart', handleTouchStart);
+      rulerContainer.addEventListener('touchmove', handleTouchMove);
+      rulerContainer.addEventListener('touchend', handleMouseUp);
+  } else {
+      rulerContainer.addEventListener('mousedown', handleMouseDown);
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+  }
+  document.getElementById('plus20').onclick = () => {
+      let c = parseFloat(measureInput.value) || 0;
+      measureInput.value = (c + 20).toFixed(1);
+      wengongImg.style.left = calculateWengong(c + 20) + 'px';
+      dinglanImg.style.left = calculateDinglan(c + 20) + 'px';
+  };
+  document.getElementById('plus5').onclick = () => {
+      let c = parseFloat(measureInput.value) || 0;
+      measureInput.value = (c + 5).toFixed(1);
+      wengongImg.style.left = calculateWengong(c + 5) + 'px';
+      dinglanImg.style.left = calculateDinglan(c + 5) + 'px';
+  };
+  document.getElementById('minus5').onclick = () => {
+      let c = parseFloat(measureInput.value) || 0;
+      let n = c - 5; if (n < 0) n = 0;
+      measureInput.value = n.toFixed(1);
+      wengongImg.style.left = calculateWengong(n) + 'px';
+      dinglanImg.style.left = calculateDinglan(n) + 'px';
+  };
+  document.getElementById('minus20').onclick = () => {
+      let c = parseFloat(measureInput.value) || 0;
+      let n = c - 20; if (n < 0) n = 0;
+      measureInput.value = n.toFixed(1);
+      wengongImg.style.left = calculateWengong(n) + 'px';
+      dinglanImg.style.left = calculateDinglan(n) + 'px';
+  };
+  function isMobileDevice() {
+      return (typeof window.orientation !== "undefined")
+          || (navigator.userAgent.indexOf('IEMobile') !== -1)
+          || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+  measureInput.addEventListener('input', function() {
+      let value = parseFloat(this.value) || 0;
+      if (value < 0) value = 0;
+      wengongImg.style.left = calculateWengong(value) + 'px';
+      dinglanImg.style.left = calculateDinglan(value) + 'px';
+  });
+</script>
+

@@ -13,8 +13,9 @@ const fmtDate = (d: Date) =>
   <section class="writing">
     <div class="sec-label">
       <h3>文章</h3>
-      <span class="rule"></span>
-      <span class="no">{posts.length} Pieces</span>
+      <div class="meta">
+        <span class="no">{posts.length} Pieces</span>
+      </div>
     </div>
     <div class="post-list single">
       {posts.map((p) => (

@@ -4,8 +4,7 @@ import { getCollection } from 'astro:content';
 
 const works = (await getCollection('works'))
   .filter((w) => w.data.featured)
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 3);
+  .sort((a, b) => a.data.order - b.data.order);
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -19,16 +18,14 @@ const fmtDate = (d: Date) =>
   <!-- hero -->
   <section class="hero">
     <div class="lead">
-      <h2>独立开发者的<br />作品陈列室与<em>思想草稿本</em>。</h2>
-      <p>这里收录我亲手建造的东西——从让多个 AI 开会讨论的工具，到替你点鼠标的桌面脚本。文章则记录我如何把问题想清楚，或者，如何承认自己还没想清楚。</p>
-      <blockquote class="motto">I'd rather be alone than be fake.</blockquote>
+      <h2>做的东西不多，<br />但每一件都<em>还在用</em>。</h2>
+      <p>写的字更少，但每一句都是真的。这里是我做的东西，和偶尔写的一点字。</p>
     </div>
     <aside class="side">
       <h4>✦ By The Numbers</h4>
-      <div class="fact">4 件作品<span>AI 工具 / 路由 / 建模 / 自动化</span></div>
+      <div class="fact">6 件作品<span>信号站 / 建模 / AI 工具 / 扩展 / 小程序 / 鲁班尺</span></div>
       <div class="fact">2 篇文章<span>刚刚开张，持续更新</span></div>
-      <div class="fact">1 个域名<span>huxi.app，自己说了算</span></div>
-      <div class="fact">0 句假话<span>座右铭见下</span></div>
+      <div class="fact">2 个域名<span>huxi.app · coinsig.io</span></div>
     </aside>
   </section>
 
@@ -36,9 +33,10 @@ const fmtDate = (d: Date) =>
   <section class="works">
     <div class="sec-label">
       <h3>作品</h3>
-      <span class="rule"></span>
-      <span class="no">Fig. 1–{works.length}</span>
-      <a class="more" href="/works">All →</a>
+      <div class="meta">
+        <span class="no">Fig. 1–{works.length}</span>
+        <a class="more" href="/works">More →</a>
+      </div>
     </div>
     <div class="work-grid">
       {works.map((w, i) => (
@@ -56,9 +54,10 @@ const fmtDate = (d: Date) =>
   <section class="writing">
     <div class="sec-label">
       <h3>文章</h3>
-      <span class="rule"></span>
-      <span class="no">Selected</span>
-      <a class="more" href="/blog">All →</a>
+      <div class="meta">
+        <span class="no">Selected</span>
+        <a class="more" href="/blog">More →</a>
+      </div>
     </div>
     <div class="post-list">
       {posts.map((p) => (
