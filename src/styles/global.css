@@ -355,8 +355,8 @@ footer.site-footer{
   display:flex;justify-content:space-between;align-items:center;
 }
 footer.site-footer .colophon{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:.85rem;color:var(--dim);
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;color:var(--dim);letter-spacing:.05em;
 }
 footer.site-footer .links{display:flex;gap:24px;}
 footer.site-footer .links a{
