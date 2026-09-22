@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="scan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1C1A16"/>
+      <stop offset="42%" stop-color="#1C1A16"/>
+      <stop offset="50%" stop-color="#F5F1E8"/>
+      <stop offset="58%" stop-color="#1C1A16"/>
+      <stop offset="100%" stop-color="#1C1A16"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#F5F1E8"/>
+  <rect width="1200" height="630" fill="url(#scan)" opacity="0"/>
+  <!-- 背景网格点 -->
+  <g fill="#D8D0C0" opacity=".5">
+    <circle cx="60" cy="60" r="1.5"/><circle cx="90" cy="60" r="1.5"/><circle cx="120" cy="60" r="1.5"/>
+    <circle cx="60" cy="90" r="1.5"/><circle cx="90" cy="90" r="1.5"/><circle cx="120" cy="90" r="1.5"/>
+    <circle cx="60" cy="120" r="1.5"/><circle cx="90" cy="120" r="1.5"/><circle cx="120" cy="120" r="1.5"/>
+    <circle cx="1080" cy="510" r="1.5"/><circle cx="1110" cy="510" r="1.5"/><circle cx="1140" cy="510" r="1.5"/>
+    <circle cx="1080" cy="540" r="1.5"/><circle cx="1110" cy="540" r="1.5"/><circle cx="1140" cy="540" r="1.5"/>
+    <circle cx="1080" cy="570" r="1.5"/><circle cx="1110" cy="570" r="1.5"/><circle cx="1140" cy="570" r="1.5"/>
+  </g>
+  <!-- 顶部小字 -->
+  <text x="600" y="120" text-anchor="middle" font-family="sans-serif" font-size="20" letter-spacing="8" fill="#6E675B">PERSONAL HOMEPAGE · HUXI.APP · 2026</text>
+  <!-- HUXI 主标 -->
+  <text x="600" y="300" text-anchor="middle" font-family="monospace" font-weight="700" font-size="180" letter-spacing="20" fill="none" stroke="#1C1A16" stroke-width="3">HUXI</text>
+  <!-- 格言 -->
+  <text x="600" y="400" text-anchor="middle" font-family="serif" font-style="italic" font-size="30" fill="#6E675B">— I'D RATHER BE ALONE THAN FAKE —</text>
+  <!-- 日期行 -->
+  <text x="600" y="500" text-anchor="middle" font-family="sans-serif" font-size="16" letter-spacing="4" fill="#6E675B">QUANZHOU, CHINA  ·  UPDATED OCCASIONALLY</text>
+  <!-- 双线 -->
+  <line x1="300" y1="460" x2="900" y2="460" stroke="#1C1A16" stroke-width="2"/>
+  <line x1="300" y1="466" x2="900" y2="466" stroke="#1C1A16" stroke-width="1"/>
+</svg>

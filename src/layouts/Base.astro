@@ -24,6 +24,19 @@ const nav = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <meta name="generator" content={Astro.generator} />
+  <link rel="canonical" href={new URL(currentPath, Astro.site)} />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={new URL(currentPath, Astro.site)} />
+  <meta property="og:title" content={`${title} · huxi`} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL('/og.svg', Astro.site)} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={`${title} · huxi`} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL('/og.svg', Astro.site)} />
+
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>{title} · huxi</title>
 
