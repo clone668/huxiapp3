@@ -4,11 +4,6 @@
    默认浅色（报纸），暗色（深夜编辑部）
    ───────────────────────────────────────────── */
 
-@import './fonts.css';
-@import '/fonts/noto-serif-sc.css';
-@import '/fonts/noto-sans-sc.css';
-
-
 :root{
   /* 浅色：米白报纸 */
   --paper:#F5F1E8;
