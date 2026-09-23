@@ -92,6 +92,7 @@ const nav = [
           </defs>
           <text class="tl-text" x="400" y="21" text-anchor="middle">— I'D RATHER BE ALONE THAN FAKE —</text>
         </svg>
+        <button class="theme-toggle" id="theme-toggle" type="button">☾ Dark</button>
       </div>
     </div>
 
@@ -100,7 +101,7 @@ const nav = [
       <span>Updated occasionally</span>
     </div>
 
-    <nav class="site-nav" style="position:relative;">
+    <nav class="site-nav">
       {nav.map((item) => {
         const active = item.href === '/'
           ? currentPath === '/'
@@ -111,7 +112,6 @@ const nav = [
           </a>
         );
       })}
-      <button class="theme-toggle" id="theme-toggle" type="button">☾ Dark</button>
     </nav>
 
     <slot />
