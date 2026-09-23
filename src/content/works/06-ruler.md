@@ -1,6 +1,6 @@
 ---
 title: 超级鲁班尺
-description: 网页版文公尺/丁兰尺——输入毫米，尺面实时滑动对齐，红线下读出阳宅阴宅吉凶。
+description: 做设计时用的小工具，实用。
 year: "2024"
 stack: [HTML, CSS, 原生 JS]
 order: 6

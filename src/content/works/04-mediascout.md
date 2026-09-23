@@ -1,5 +1,5 @@
 ---
-title: 媒探 MediaScout
+title: MediaScout | 媒探
 description: Chrome 扩展——列出当前页的音视频、HLS/DASH 资源，能下的直接下，不能下的给出 FFmpeg 命令。
 year: "2025"
 stack: [Manifest V3, Chrome Extension, FFmpeg]

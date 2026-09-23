@@ -23,7 +23,7 @@ const fmtDate = (d: Date) =>
     </div>
     <aside class="side">
       <h4>✦ By The Numbers</h4>
-      <div class="fact">6 件作品<span>信号站 / 建模 / AI 工具 / 扩展 / 小程序 / 鲁班尺</span></div>
+      <div class="fact">6 件作品<span>量化信号 · AI 建模 · 等小工具</span></div>
       <div class="fact">2 篇文章<span>刚刚开张，持续更新</span></div>
       <div class="fact">2 个域名<span>huxi.app · coinsig.io</span></div>
     </aside>
@@ -34,14 +34,14 @@ const fmtDate = (d: Date) =>
     <div class="sec-label">
       <h3>Works</h3>
       <div class="meta">
-        <span class="no">Fig. 1–{works.length}</span>
+        <span class="no">#01–#{String(works.length).padStart(2, '0')}</span>
         <a class="more" href="/works">More →</a>
       </div>
     </div>
     <div class="work-grid">
       {works.map((w, i) => (
         <a class="work-cell" href={`/works/${w.id}`}>
-          <div class="fig">Fig. {i + 1}</div>
+          <div class="fig">#{String(i + 1).padStart(2, '0')}</div>
           <h5>{w.data.title}</h5>
           <p>{w.data.description}</p>
           <div class="foot">{w.data.stack.join(' · ')} · {w.data.year}</div>

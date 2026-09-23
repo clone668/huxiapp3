@@ -9,18 +9,20 @@ const works = (await getCollection('works'))
 <Base title="作品">
   <section class="works">
     <div class="sec-label">
-      <h3>作品</h3>
+      <h3>Works</h3>
       <div class="meta">
-        <span class="no">Fig. 1–{works.length}</span>
+        <span class="no">#01–#{String(works.length).padStart(2, '0')}</span>
       </div>
     </div>
-    <div class="work-grid cols-2">
+    <div class="work-list">
       {works.map((w, i) => (
-        <a class="work-cell" href={`/works/${w.id}`}>
-          <div class="fig">Fig. {i + 1}</div>
-          <h5>{w.data.title}</h5>
-          <p>{w.data.description}</p>
-          <div class="foot">{w.data.stack.join(' · ')} · {w.data.year}</div>
+        <a class="work-row" href={`/works/${w.id}`}>
+          <span class="row-fig">#{String(i + 1).padStart(2, '0')}</span>
+          <span class="row-main">
+            <h5>{w.data.title}</h5>
+            <p>{w.data.description}</p>
+          </span>
+          <span class="row-foot">{w.data.stack.join(' · ')} · {w.data.year}</span>
         </a>
       ))}
     </div>
