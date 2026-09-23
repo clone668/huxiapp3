@@ -58,8 +58,8 @@ a{color:inherit;}
   border-bottom:3px double var(--line-strong);
 }
 .masthead .vol{
-  font-size:.7rem;letter-spacing:.9em;text-transform:uppercase;color:var(--dim);
-  margin-bottom:2px;
+  font-size:.7rem;letter-spacing:clamp(.15em, 3.2vw, .9em);text-transform:uppercase;color:var(--dim);
+  margin-bottom:2px;white-space:nowrap;
 }
 .masthead .wordmark{
   display:block;
@@ -371,7 +371,6 @@ footer.site-footer .links a:hover{color:var(--accent);border-bottom-color:var(--
   .wrap{padding:0 24px;}
 
   /* 刊头收紧 */
-  .masthead .vol{letter-spacing:.4em;}
   .masthead .wordmark{width:min(420px,82vw);margin:-18px auto -10px;}
   .masthead .tagline-svg{width:min(420px,84vw);}
 
