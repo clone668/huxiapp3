@@ -29,16 +29,17 @@ import Base from '../layouts/Base.astro';
     margin: 0 auto 32px;
   }
   .code-text {
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
     font-size: 110px;
     letter-spacing: .08em;
     color: var(--ink);
     transform: scaleY(.82);
     transform-origin: 200px 105px;
+    stroke-linejoin: round;
     stroke-dasharray: 900;
     stroke-dashoffset: 900;
-    animation: code-draw 2.4s .2s forwards;
+    animation: code-draw 2.4s .2s cubic-bezier(.45,0,.25,1) forwards;
   }
   @keyframes code-draw {
     to { stroke-dashoffset: 0; }
