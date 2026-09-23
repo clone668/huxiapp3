@@ -338,6 +338,9 @@ section.works,section.writing{padding:24px 0;}
   font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:.1em;text-transform:uppercase;
   transform:scaleX(1.6);transform-origin:center;
 }
+@media(max-width:760px){
+  .about-head h1{transform:scaleX(1.2);}
+}
 .prose-head .meta{
   margin-top:24px;
   font-family:'JetBrains Mono',monospace;
