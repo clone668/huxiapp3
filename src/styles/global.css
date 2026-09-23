@@ -438,8 +438,8 @@ footer.site-footer .links a{
   .work-row .row-foot{width:100%;text-align:left;}
 
   /* 导航 */
-  nav.site-nav{flex-wrap:wrap;}
-  nav.site-nav a{padding:10px 14px;letter-spacing:.12em;font-size:.75rem;}
+  nav.site-nav{flex-wrap:nowrap;}
+  nav.site-nav a{padding:10px 8px;letter-spacing:.08em;font-size:.7rem;flex:1;text-align:center;justify-content:center;white-space:nowrap;}
 
   /* 页脚 */
   footer.site-footer{flex-direction:column;gap:12px;padding:14px 0 32px;}
