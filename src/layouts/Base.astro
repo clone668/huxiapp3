@@ -121,26 +121,54 @@ const nav = [
   </div>
 
   <script is:inline>
-    // vol 字距自适应：量容器宽，反推出刚好放满一行的 letter-spacing
+    // Fit the rendered text itself: font metrics can change after the page first paints.
     (function () {
       const vol = document.querySelector('.masthead .vol');
       if (!vol) return;
-      const text = vol.textContent;
+      const range = document.createRange();
+      range.selectNodeContents(vol);
+      const targetPadding = 1;
+
       function fit() {
-        // 临时 inline 元素量文字原始宽度
-        const m = document.createElement('span');
-        m.style.cssText = 'visibility:hidden;white-space:nowrap;letter-spacing:0;' +
-          'font:' + getComputedStyle(vol).font;
-        m.textContent = text;
-        document.body.appendChild(m);
-        const textWidth = m.offsetWidth;
-        m.remove();
-        const containerWidth = vol.parentElement.clientWidth;
-        const gap = (containerWidth - textWidth) / (text.length - 1);
-        vol.style.letterSpacing = Math.max(0.5, gap) + 'px';
+        const available = vol.clientWidth - targetPadding;
+        if (available <= 0) return;
+
+        vol.style.letterSpacing = '0px';
+        const naturalWidth = range.getBoundingClientRect().width;
+        if (naturalWidth >= available) return;
+
+        // The browser's actual Range width accounts for glyphs, kerning and the last gap.
+        // Find the largest spacing that remains inside the container.
+        let low = 0;
+        let high = available;
+        for (let i = 0; i < 16; i++) {
+          const mid = (low + high) / 2;
+          vol.style.letterSpacing = `${mid}px`;
+          if (range.getBoundingClientRect().width <= available) low = mid;
+          else high = mid;
+        }
+        vol.style.letterSpacing = `${low}px`;
       }
-      fit();
-      window.addEventListener('resize', fit);
+
+      let scheduled = false;
+      function scheduleFit() {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(() => {
+          scheduled = false;
+          fit();
+        });
+      }
+
+      scheduleFit();
+      new ResizeObserver(scheduleFit).observe(vol);
+      window.addEventListener('pageshow', scheduleFit);
+      if (document.fonts) {
+        document.fonts.ready.then(scheduleFit);
+        // WebKit can omit loadingdone for a font that arrives after first paint.
+        document.fonts.addEventListener('loading', () => document.fonts.ready.then(scheduleFit));
+        document.fonts.addEventListener('loadingdone', scheduleFit);
+      }
     })();
   </script>
 
